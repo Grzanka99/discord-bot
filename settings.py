@@ -13,3 +13,6 @@ class Settings(object):
         host=data['host'],
         database=data['database']
     )
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+

@@ -1,4 +1,4 @@
-import multiprocessing
+import threading
 
 from config import TOKEN
 from bot import client
@@ -7,9 +7,17 @@ from settings import Settings
 
 app = create_app(Settings)
 
+
+def run_api():
+    app.run()
+
+
+def run_bot():
+    client.run(TOKEN)
+
 if __name__ == "__main__":
-    api = multiprocessing.Process(target=app, name='api')
-    bot = multiprocessing.Process(target=client, args=(TOKEN))
+    api = threading.Thread(target=run_api)
+    bot = threading.Thread(target=run_bot)
 
     api.start()
-    # bot.start()
+    bot.run()
